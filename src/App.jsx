@@ -41,7 +41,7 @@ const HORARIOS = [
   },
   {
     dia: 'Sábado',
-    horario: '17h às 21h',
+    horario: '16h às 21h',
     fechado: false,
   },
   {
