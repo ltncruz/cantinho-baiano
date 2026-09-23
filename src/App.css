@@ -34,10 +34,12 @@ body {
   background-color: var(--brown-dark);
 }
 
-/* ---------- Palco / fundo ---------- */
+/* ---------- Página ---------- */
 
 .page {
   position: relative;
+  z-index: 0;
+
   min-height: 100dvh;
 
   display: flex;
@@ -49,22 +51,62 @@ body {
   padding:
     max(20px, env(safe-area-inset-top))
     clamp(20px, 6vw, 56px)
-    max(40px, env(safe-area-inset-bottom));
+    0;
 
-  background-color: var(--brown-dark);
-  background-image: url('./assets/fundo-mobile.jpg');
-  background-size: cover;
-  background-position: top center;
-  background-repeat: no-repeat;
+  background-color: transparent;
 
   animation: fadeIn 900ms ease-out both;
 }
 
+/* ---------- Fundo fixo ---------- */
+
+.page::before {
+  content: '';
+
+  position: fixed;
+  inset: 0;
+
+  z-index: -2;
+
+  background-color: var(--brown-dark);
+
+  background-image:
+    url('./assets/fundo-mobile.jpg');
+
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
+}
+
+/* Leve camada para melhorar leitura do conteúdo */
+
+.page::after {
+  content: '';
+
+  position: fixed;
+  inset: 0;
+
+  z-index: -1;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(35, 13, 3, 0.02) 0%,
+      rgba(35, 13, 3, 0.08) 45%,
+      rgba(35, 13, 3, 0.18) 100%
+    );
+}
+
+/* ---------- Fundo desktop ---------- */
+
 @media (min-width: 900px) {
-  .page {
-    background-image: url('./assets/fundo-desktop.jpg');
+  .page::before {
+    background-image:
+      url('./assets/fundo-desktop.jpg');
+
     background-position: center top;
-    background-attachment: fixed;
   }
 }
 
@@ -97,9 +139,17 @@ body {
 
   object-fit: contain;
 
-  filter: drop-shadow(0 18px 34px rgba(0, 0, 0, 0.45));
+  filter:
+    drop-shadow(
+      0 18px 34px rgba(0, 0, 0, 0.45)
+    );
 
-  animation: logoIn 700ms 250ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation:
+    logoIn
+    700ms
+    250ms
+    cubic-bezier(0.22, 1, 0.36, 1)
+    both;
 }
 
 /* ---------- Container dos botões ---------- */
@@ -113,7 +163,8 @@ body {
 
   gap: 14px;
 
-  margin-top: clamp(26px, 5vw, 42px);
+  margin-top:
+    clamp(26px, 5vw, 42px);
 
   animation:
     buttonIn
@@ -126,7 +177,8 @@ body {
 /* ---------- Botões ---------- */
 
 .cta-button {
-  --btn-shadow: 0 10px 24px rgba(20, 8, 2, 0.4);
+  --btn-shadow:
+    0 10px 24px rgba(20, 8, 2, 0.4);
 
   display: inline-flex;
   align-items: center;
@@ -136,29 +188,38 @@ body {
 
   width: min(88%, 420px);
 
-  padding: clamp(16px, 3.2vw, 20px) clamp(28px, 5vw, 40px);
+  padding:
+    clamp(16px, 3.2vw, 20px)
+    clamp(28px, 5vw, 40px);
 
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(1rem, 4.2vw, 1.25rem);
+
+  font-size:
+    clamp(1rem, 4.2vw, 1.25rem);
+
   letter-spacing: 0.02em;
 
   color: var(--brown-dark);
+
   text-decoration: none;
   text-align: center;
+
   white-space: nowrap;
 
-  background: linear-gradient(
-    135deg,
-    var(--yellow) 0%,
-    var(--orange) 100%
-  );
+  background:
+    linear-gradient(
+      135deg,
+      var(--yellow) 0%,
+      var(--orange) 100%
+    );
 
   border-radius: 999px;
 
   box-shadow:
     var(--btn-shadow),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.4);
 
   transition:
     transform 180ms ease,
@@ -171,11 +232,12 @@ body {
 .whatsapp-button {
   color: #ffffff;
 
-  background: linear-gradient(
-    135deg,
-    #2ed768 0%,
-    #1faf50 100%
-  );
+  background:
+    linear-gradient(
+      135deg,
+      #2ed768 0%,
+      #1faf50 100%
+    );
 }
 
 .whatsapp-icon {
@@ -193,8 +255,10 @@ body {
   transform: translateY(-3px);
 
   box-shadow:
-    0 14px 30px rgba(20, 8, 2, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+    0 14px 30px
+    rgba(20, 8, 2, 0.45),
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.45);
 
   filter: brightness(1.04);
 }
@@ -205,12 +269,17 @@ body {
     scale(0.97);
 
   box-shadow:
-    0 6px 14px rgba(20, 8, 2, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    0 6px 14px
+    rgba(20, 8, 2, 0.4),
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.3);
 }
 
-.cta-button:focus-visible {
-  outline: 3px solid var(--yellow);
+.cta-button:focus-visible,
+.map-link:focus-visible {
+  outline:
+    3px solid var(--yellow);
+
   outline-offset: 5px;
 }
 
@@ -224,17 +293,22 @@ body {
   justify-content: center;
 
   margin-top: -40px;
-  padding: 0 0 50px;
+
+  padding:
+    0 0 50px;
 }
 
 .schedule-card {
   width: 100%;
 
-  padding: clamp(24px, 5vw, 38px);
+  padding:
+    clamp(24px, 5vw, 38px);
 
   border-radius: 26px;
 
-  border: 1px solid rgba(255, 212, 59, 0.22);
+  border:
+    1px solid
+    rgba(255, 212, 59, 0.22);
 
   background:
     linear-gradient(
@@ -244,24 +318,31 @@ body {
     );
 
   box-shadow:
-    0 20px 45px rgba(0, 0, 0, 0.38),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    0 20px 45px
+    rgba(0, 0, 0, 0.38),
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.05);
 
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
 }
 
 .schedule-title {
-  margin: 0 0 20px;
+  margin:
+    0 0 20px;
 
   color: var(--yellow);
 
-  font-size: clamp(1.6rem, 5vw, 2.25rem);
+  font-size:
+    clamp(1.6rem, 5vw, 2.25rem);
+
   line-height: 1.1;
 
   text-align: center;
 
-  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+  text-shadow:
+    0 3px 10px
+    rgba(0, 0, 0, 0.35);
 }
 
 /* ---------- Aberto / fechado ---------- */
@@ -270,19 +351,23 @@ body {
   width: fit-content;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
   gap: 9px;
 
-  margin: 0 auto 24px;
+  margin:
+    0 auto 24px;
 
-  padding: 10px 18px;
+  padding:
+    10px 18px;
 
   border-radius: 999px;
 
   font-size: 0.95rem;
   font-weight: 800;
+
   letter-spacing: 0.045em;
 }
 
@@ -292,25 +377,35 @@ body {
 
   border-radius: 50%;
 
-  background: currentColor;
+  background:
+    currentColor;
 
-  box-shadow: 0 0 12px currentColor;
+  box-shadow:
+    0 0 12px currentColor;
 }
 
 .status-open {
-  color: var(--green-open);
+  color:
+    var(--green-open);
 
-  background: rgba(48, 184, 89, 0.16);
+  background:
+    rgba(48, 184, 89, 0.16);
 
-  border: 1px solid rgba(69, 217, 119, 0.32);
+  border:
+    1px solid
+    rgba(69, 217, 119, 0.32);
 }
 
 .status-closed {
-  color: var(--red-closed);
+  color:
+    var(--red-closed);
 
-  background: rgba(186, 51, 28, 0.18);
+  background:
+    rgba(186, 51, 28, 0.18);
 
-  border: 1px solid rgba(255, 122, 102, 0.28);
+  border:
+    1px solid
+    rgba(255, 122, 102, 0.28);
 }
 
 /* ---------- Lista de horários ---------- */
@@ -322,23 +417,30 @@ body {
 
   border-radius: 18px;
 
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.08);
 }
 
 .schedule-row {
   min-height: 54px;
 
   display: flex;
+
   align-items: center;
   justify-content: space-between;
 
   gap: 20px;
 
-  padding: 13px 16px;
+  padding:
+    13px 16px;
 
-  background: rgba(255, 255, 255, 0.035);
+  background:
+    rgba(255, 255, 255, 0.035);
 
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  border-bottom:
+    1px solid
+    rgba(255, 255, 255, 0.07);
 }
 
 .schedule-row:last-child {
@@ -360,29 +462,272 @@ body {
 }
 
 .closed-time {
-  color: rgba(255, 235, 220, 0.62);
+  color:
+    rgba(255, 235, 220, 0.62);
+}
+
+/* ---------- Localização ---------- */
+
+.location-section {
+  width: 100%;
+  max-width: 760px;
+
+  display: flex;
+  justify-content: center;
+
+  padding:
+    10px 0 60px;
+}
+
+.location-card {
+  width: 100%;
+
+  padding:
+    clamp(24px, 5vw, 38px);
+
+  border-radius: 26px;
+
+  border:
+    1px solid
+    rgba(255, 212, 59, 0.22);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(91, 46, 18, 0.94),
+      rgba(44, 19, 7, 0.96)
+    );
+
+  box-shadow:
+    0 20px 45px
+    rgba(0, 0, 0, 0.38),
+    inset 0 1px 0
+    rgba(255, 255, 255, 0.05);
+
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.location-title {
+  margin:
+    0 0 18px;
+
+  color:
+    var(--yellow);
+
+  font-size:
+    clamp(1.6rem, 5vw, 2.25rem);
+
+  line-height: 1.1;
+
+  text-align: center;
+
+  text-shadow:
+    0 3px 10px
+    rgba(0, 0, 0, 0.35);
+}
+
+.location-address {
+  margin:
+    0 0 24px;
+
+  color: #ffffff;
+
+  font-size:
+    clamp(1rem, 3.9vw, 1.12rem);
+
+  font-weight: 600;
+
+  line-height: 1.55;
+
+  text-align: center;
+}
+
+/* ---------- Link do mapa ---------- */
+
+.map-link {
+  display: block;
+
+  width: 100%;
+
+  color: inherit;
+
+  text-decoration: none;
+
+  border-radius: 22px;
+}
+
+/* ---------- Prévia do mapa ---------- */
+
+.map-preview {
+  position: relative;
+
+  width: 100%;
+
+  aspect-ratio: 16 / 10;
+
+  overflow: hidden;
+
+  border-radius: 22px;
+
+  border:
+    2px solid
+    rgba(255, 212, 59, 0.42);
+
+  background-color:
+    var(--brown-dark);
+
+  box-shadow:
+    0 16px 34px
+    rgba(0, 0, 0, 0.35);
+
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.map-preview iframe {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  border: 0;
+
+  pointer-events: none;
+}
+
+/* ---------- Botão sobre o mapa ---------- */
+
+.map-overlay {
+  position: absolute;
+
+  left: 50%;
+  bottom: 16px;
+
+  transform:
+    translateX(-50%);
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding:
+    11px 18px;
+
+  white-space: nowrap;
+
+  color:
+    var(--brown-dark);
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--yellow),
+      var(--orange)
+    );
+
+  border-radius: 999px;
+
+  font-size:
+    clamp(0.76rem, 3vw, 0.92rem);
+
+  font-weight: 800;
+
+  letter-spacing: 0.025em;
+
+  box-shadow:
+    0 8px 20px
+    rgba(0, 0, 0, 0.4);
+
+  pointer-events: none;
+}
+
+.map-link:hover .map-preview {
+  transform:
+    translateY(-3px);
+
+  border-color:
+    var(--yellow);
+
+  box-shadow:
+    0 20px 40px
+    rgba(0, 0, 0, 0.42);
+}
+
+/* ---------- Rodapé ---------- */
+
+.footer {
+  width:
+    calc(
+      100% +
+      clamp(40px, 12vw, 112px)
+    );
+
+  margin-top: auto;
+
+  padding:
+    24px 20px
+    max(
+      24px,
+      env(safe-area-inset-bottom)
+    );
+
+  text-align: center;
+
+  background:
+    rgba(31, 11, 3, 0.88);
+
+  border-top:
+    1px solid
+    rgba(255, 212, 59, 0.18);
+
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.footer p {
+  margin: 0;
+
+  color:
+    rgba(255, 245, 220, 0.8);
+
+  font-size:
+    clamp(0.82rem, 3.2vw, 0.95rem);
+
+  line-height: 1.4;
+
+  text-align: center;
 }
 
 /* ---------- Celulares muito pequenos ---------- */
 
 @media (max-width: 360px) {
   .hero {
-    transform: translateY(-90px);
+    transform:
+      translateY(-90px);
   }
 
   .logo {
-    width: min(84vw, 340px);
+    width:
+      min(84vw, 340px);
   }
 
   .action-buttons {
     gap: 12px;
+
     margin-top: 22px;
   }
 
   .cta-button {
     width: 92%;
+
     font-size: 0.95rem;
-    padding: 15px 22px;
+
+    padding:
+      15px 22px;
   }
 
   .whatsapp-icon {
@@ -394,12 +739,15 @@ body {
     margin-top: -20px;
   }
 
-  .schedule-card {
-    padding: 22px 16px;
+  .schedule-card,
+  .location-card {
+    padding:
+      22px 16px;
   }
 
   .schedule-row {
     gap: 10px;
+
     padding: 12px;
   }
 
@@ -407,17 +755,40 @@ body {
   .schedule-time {
     font-size: 0.9rem;
   }
+
+  .location-address {
+    font-size: 0.95rem;
+  }
+
+  .map-preview {
+    aspect-ratio: 4 / 3;
+  }
+
+  .map-overlay {
+    bottom: 12px;
+
+    padding:
+      9px 13px;
+
+    font-size: 0.74rem;
+  }
 }
 
 /* ---------- Celulares médios e grandes ---------- */
 
 @media (min-width: 430px) and (max-width: 899px) {
   .hero {
-    transform: translateY(-125px);
+    transform:
+      translateY(-125px);
   }
 
   .logo {
-    width: clamp(330px, 78vw, 560px);
+    width:
+      clamp(
+        330px,
+        78vw,
+        560px
+      );
   }
 
   .action-buttons {
@@ -430,6 +801,7 @@ body {
 @media (min-width: 600px) {
   .cta-button {
     width: auto;
+
     min-width: 320px;
   }
 }
@@ -440,17 +812,24 @@ body {
   .hero {
     max-width: 1600px;
 
-    transform: translateY(-145px);
+    transform:
+      translateY(-145px);
   }
 
   .logo {
-    width: clamp(620px, 52vw, 920px);
+    width:
+      clamp(
+        620px,
+        52vw,
+        920px
+      );
   }
 
   .action-buttons {
     width: auto;
 
     flex-direction: row;
+
     justify-content: center;
 
     gap: 18px;
@@ -461,9 +840,15 @@ body {
   .cta-button {
     min-width: 300px;
 
-    font-size: clamp(1rem, 1.15vw, 1.25rem);
+    font-size:
+      clamp(
+        1rem,
+        1.15vw,
+        1.25rem
+      );
 
-    padding: 18px 38px;
+    padding:
+      18px 38px;
   }
 
   .whatsapp-icon {
@@ -475,8 +860,22 @@ body {
     margin-top: -110px;
   }
 
-  .schedule-card {
-    padding: 38px 42px;
+  .schedule-card,
+  .location-card {
+    padding:
+      38px 42px;
+  }
+
+  .location-section {
+    max-width: 820px;
+  }
+
+  .schedule-section {
+    max-width: 820px;
+  }
+
+  .map-preview {
+    aspect-ratio: 16 / 8;
   }
 }
 
@@ -484,11 +883,17 @@ body {
 
 @media (min-width: 1440px) {
   .hero {
-    transform: translateY(-165px);
+    transform:
+      translateY(-165px);
   }
 
   .logo {
-    width: clamp(760px, 50vw, 1080px);
+    width:
+      clamp(
+        760px,
+        50vw,
+        1080px
+      );
   }
 
   .cta-button {
@@ -500,11 +905,17 @@ body {
 
 @media (min-width: 1800px) {
   .hero {
-    transform: translateY(-180px);
+    transform:
+      translateY(-180px);
   }
 
   .logo {
-    width: clamp(860px, 48vw, 1180px);
+    width:
+      clamp(
+        860px,
+        48vw,
+        1180px
+      );
   }
 }
 
@@ -512,11 +923,13 @@ body {
 
 @media (max-width: 899px) and (max-height: 620px) {
   .hero {
-    transform: translateY(-35px);
+    transform:
+      translateY(-35px);
   }
 
   .logo {
-    width: min(58vh, 360px);
+    width:
+      min(58vh, 360px);
   }
 
   .action-buttons {
@@ -543,24 +956,32 @@ body {
 @keyframes logoIn {
   from {
     opacity: 0;
-    transform: translateY(18px);
+
+    transform:
+      translateY(18px);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
+
+    transform:
+      translateY(0);
   }
 }
 
 @keyframes buttonIn {
   from {
     opacity: 0;
-    transform: translateY(14px);
+
+    transform:
+      translateY(14px);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
+
+    transform:
+      translateY(0);
   }
 }
 
@@ -575,7 +996,8 @@ body {
   }
 
   .cta-button:hover,
-  .cta-button:active {
+  .cta-button:active,
+  .map-link:hover .map-preview {
     transform: none !important;
   }
 }
