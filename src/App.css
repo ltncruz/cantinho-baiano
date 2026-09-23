@@ -215,21 +215,30 @@ body {
 
 @media (min-width: 900px) {
   .hero {
-    max-width: 2200px;
-    transform: translateY(-250px);
+    max-width: 1600px;
+
+    /*
+      Sobe o conjunto no desktop,
+      mas sem exagero.
+    */
+    transform: translateY(-145px);
   }
 
   .logo {
     /*
-      AUMENTO BEM FORTE no desktop
+      Grande, mas controlada.
+      Continua centralizada e invade um pouco a folhagem.
     */
-    width: clamp(1200px, 92vw, 1900px);
+    width: clamp(620px, 52vw, 920px);
   }
 
   .cta-button {
-    margin-top: -10px;
-    min-width: 390px;
-    font-size: clamp(1rem, 1.15vw, 1.3rem);
+    margin-top: 18px;
+
+    min-width: 380px;
+
+    font-size: clamp(1rem, 1.15vw, 1.25rem);
+
     padding: 18px 44px;
   }
 }
@@ -238,16 +247,16 @@ body {
 
 @media (min-width: 1440px) {
   .hero {
-    transform: translateY(-280px);
+    transform: translateY(-165px);
   }
 
   .logo {
-    width: clamp(1350px, 88vw, 2100px);
+    width: clamp(760px, 50vw, 1080px);
   }
 
   .cta-button {
-    min-width: 410px;
-    margin-top: -4px;
+    min-width: 400px;
+    margin-top: 20px;
   }
 }
 
@@ -255,11 +264,11 @@ body {
 
 @media (min-width: 1800px) {
   .hero {
-    transform: translateY(-300px);
+    transform: translateY(-180px);
   }
 
   .logo {
-    width: clamp(1450px, 84vw, 2300px);
+    width: clamp(860px, 48vw, 1180px);
   }
 }
 
