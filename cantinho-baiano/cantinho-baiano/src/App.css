@@ -1,0 +1,387 @@
+/* ---------------------------------------------------------
+   Reset básico
+--------------------------------------------------------- */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  font-family: inherit;
+}
+
+/* ---------------------------------------------------------
+   Paleta / tokens
+--------------------------------------------------------- */
+:root {
+  --wood-dark: #5b2e12;
+  --wood-warm: #a65a23;
+  --orange: #ff8a1c;
+  --yellow: #ffd43b;
+  --green: #2e7d32;
+
+  --green-light: #4f9d4a;
+  --green-lighter: #7cb56d;
+  --green-dark: #1f5723;
+}
+
+/* ---------------------------------------------------------
+   Página / fundo de madeira
+--------------------------------------------------------- */
+.page {
+  position: relative;
+  min-height: 100dvh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1.25rem, 5vw, 4rem);
+
+  background-color: var(--wood-dark);
+  background-image:
+    /* veios finos da madeira */
+    repeating-linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.05) 0px,
+      rgba(0, 0, 0, 0.05) 1px,
+      transparent 1px,
+      transparent 5px
+    ),
+    /* faixas largas de tonalidade, dando profundidade às tábuas */
+    repeating-linear-gradient(
+      100deg,
+      rgba(255, 255, 255, 0.02) 0px,
+      transparent 2px,
+      transparent 60px,
+      rgba(0, 0, 0, 0.05) 63px,
+      transparent 90px
+    ),
+    /* iluminação quente central */
+    radial-gradient(
+      ellipse 65% 55% at 50% 38%,
+      rgba(255, 170, 60, 0.22),
+      transparent 62%
+    ),
+    /* gradiente base da madeira escura */
+    linear-gradient(160deg, #6d3a16 0%, var(--wood-dark) 45%, #3f1e0b 100%);
+
+  animation: bgFadeIn 900ms ease-out both;
+}
+
+/* vinheta suave nas bordas */
+.page::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 45%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
+  z-index: 1;
+}
+
+/* ---------------------------------------------------------
+   Conteúdo central
+--------------------------------------------------------- */
+.hero {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1.5rem, 4.5vh, 2.75rem);
+  width: 100%;
+  max-width: 720px;
+}
+
+/* brilho dourado sutil atrás da logo */
+.logo-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(90vw, 560px);
+  height: min(90vw, 560px);
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 212, 59, 0.35) 0%,
+    rgba(255, 138, 28, 0.12) 45%,
+    transparent 72%
+  );
+  filter: blur(6px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.logo {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: min(78vw, 50dvh, 640px);
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.5));
+  animation: logoIn 900ms ease-out 120ms both;
+}
+
+/* ---------------------------------------------------------
+   Botão do cardápio
+--------------------------------------------------------- */
+.cta {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: min(90%, 380px);
+  padding: 1.05rem 1.75rem;
+
+  font-size: clamp(1rem, 3.6vw, 1.2rem);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #3a1c08;
+  text-decoration: none;
+  white-space: normal;
+
+  border-radius: 14px;
+  border: 2px solid rgba(58, 28, 8, 0.35);
+  background: linear-gradient(155deg, var(--yellow) 0%, var(--orange) 85%);
+  box-shadow:
+    0 10px 22px rgba(37, 17, 5, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+
+  transform: translateY(0) scale(1);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    filter 180ms ease;
+
+  animation: ctaIn 900ms ease-out 420ms both;
+}
+
+.cta:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.04);
+  box-shadow:
+    0 14px 26px rgba(37, 17, 5, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.cta:active {
+  transform: translateY(-1px) scale(0.97);
+  box-shadow:
+    0 6px 14px rgba(37, 17, 5, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.cta:focus-visible {
+  outline: 3px solid var(--yellow);
+  outline-offset: 4px;
+}
+
+/* ---------------------------------------------------------
+   Folhagens decorativas (SVG inline)
+--------------------------------------------------------- */
+.leaves {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.leaf {
+  position: absolute;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.35));
+  transform-origin: 50% 10%;
+  animation: sway var(--sway-duration, 9s) ease-in-out infinite;
+}
+
+.leaf-1 {
+  top: -3%;
+  left: -5%;
+  width: clamp(64px, 13vw, 140px);
+  color: var(--green-dark);
+  --rot: -18deg;
+  --sway-duration: 9s;
+}
+
+.leaf-2 {
+  top: -4%;
+  right: -6%;
+  width: clamp(70px, 15vw, 160px);
+  color: var(--green-light);
+  --rot: 22deg;
+  --sway-duration: 11s;
+  animation-delay: -3s;
+}
+
+.leaf-3 {
+  top: 28%;
+  left: -7%;
+  width: clamp(46px, 9vw, 100px);
+  color: var(--green);
+  --rot: -8deg;
+  --sway-duration: 10s;
+  animation-delay: -5s;
+}
+
+.leaf-4 {
+  top: 30%;
+  right: -8%;
+  width: clamp(46px, 9vw, 100px);
+  color: var(--green-lighter);
+  --rot: 10deg;
+  --sway-duration: 8s;
+  animation-delay: -1s;
+}
+
+.leaf-5 {
+  bottom: -5%;
+  left: -4%;
+  width: clamp(56px, 11vw, 120px);
+  color: var(--green-dark);
+  --rot: -25deg;
+  --sway-duration: 12s;
+  animation-delay: -7s;
+}
+
+.leaf-6 {
+  bottom: -4%;
+  right: -5%;
+  width: clamp(56px, 11vw, 120px);
+  color: var(--green-light);
+  --rot: 16deg;
+  --sway-duration: 10.5s;
+  animation-delay: -4s;
+}
+
+/* ---------------------------------------------------------
+   Animações
+--------------------------------------------------------- */
+@keyframes bgFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes logoIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ctaIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes sway {
+  0%,
+  100% {
+    transform: rotate(var(--rot, -10deg)) translate(0, 0);
+  }
+  50% {
+    transform: rotate(calc(var(--rot, -10deg) + 4deg)) translate(2px, -4px);
+  }
+}
+
+/* ---------------------------------------------------------
+   Responsividade
+--------------------------------------------------------- */
+
+/* Mobile: menos folhas, folhas menores, sem folhas laterais no meio */
+@media (max-width: 600px) {
+  .leaf-3,
+  .leaf-4 {
+    display: none;
+  }
+
+  .leaf-1 {
+    width: clamp(52px, 22vw, 90px);
+  }
+
+  .leaf-2 {
+    width: clamp(56px, 24vw, 96px);
+  }
+
+  .leaf-5,
+  .leaf-6 {
+    width: clamp(46px, 18vw, 78px);
+  }
+}
+
+/* Tablet: um pouco mais de decoração e logo maior */
+@media (min-width: 601px) and (max-width: 1023px) {
+  .hero {
+    max-width: 640px;
+  }
+}
+
+/* Desktop: mais espaço horizontal e profundidade */
+@media (min-width: 1024px) {
+  .hero {
+    max-width: 780px;
+    gap: 3rem;
+  }
+
+  .cta {
+    width: min(50%, 340px);
+  }
+}
+
+/* Monitores grandes: limites máximos para não crescer indefinidamente */
+@media (min-width: 1440px) {
+  .logo {
+    width: min(42vw, 46dvh, 680px);
+  }
+
+  .logo-glow {
+    width: min(60vw, 620px);
+    height: min(60vw, 620px);
+  }
+}
+
+/* Acessibilidade de movimento */
+@media (prefers-reduced-motion: reduce) {
+  .page,
+  .logo,
+  .cta,
+  .leaf {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
