@@ -265,7 +265,7 @@ body {
 
 /* ---------- Telas baixas / paisagem mobile ---------- */
 
-@media (max-height: 620px) {
+@media (max-width: 899px) and (max-height: 620px) {
   .page {
     overflow-y: auto;
   }
