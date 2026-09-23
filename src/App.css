@@ -71,11 +71,6 @@ body {
   width: 100%;
   max-width: 1200px;
 
-  /*
-    Mobile:
-    mantém o conjunto mais alto para a logo
-    entrar melhor na folhagem.
-  */
   transform: translateY(-110px);
 }
 
@@ -84,10 +79,6 @@ body {
 .logo {
   display: block;
 
-  /*
-    Mobile:
-    permanece como estava.
-  */
   width: clamp(300px, 82vw, 520px);
   max-width: 100%;
   height: auto;
@@ -224,35 +215,21 @@ body {
 
 @media (min-width: 900px) {
   .hero {
-    /*
-      Desktop:
-      sobe bastante o conjunto para a logo
-      tocar visualmente a região da segunda tábua.
-    */
-    max-width: 1600px;
-    transform: translateY(-220px);
+    max-width: 2200px;
+    transform: translateY(-250px);
   }
 
   .logo {
     /*
-      Desktop:
-      aumenta bastante a presença da logo.
-      Mantém centralizada.
+      AUMENTO BEM FORTE no desktop
     */
-    width: clamp(900px, 70vw, 1400px);
+    width: clamp(1200px, 92vw, 1900px);
   }
 
   .cta-button {
-    /*
-      Mantém o botão centralizado,
-      sem subir exageradamente junto da logo.
-    */
-    margin-top: 12px;
-
-    min-width: 380px;
-
-    font-size: clamp(1rem, 1.2vw, 1.3rem);
-
+    margin-top: -10px;
+    min-width: 390px;
+    font-size: clamp(1rem, 1.15vw, 1.3rem);
     padding: 18px 44px;
   }
 }
@@ -261,16 +238,16 @@ body {
 
 @media (min-width: 1440px) {
   .hero {
-    transform: translateY(-235px);
+    transform: translateY(-280px);
   }
 
   .logo {
-    width: clamp(1050px, 68vw, 1550px);
+    width: clamp(1350px, 88vw, 2100px);
   }
 
   .cta-button {
-    min-width: 400px;
-    margin-top: 14px;
+    min-width: 410px;
+    margin-top: -4px;
   }
 }
 
@@ -278,11 +255,11 @@ body {
 
 @media (min-width: 1800px) {
   .hero {
-    transform: translateY(-250px);
+    transform: translateY(-300px);
   }
 
   .logo {
-    width: clamp(1150px, 66vw, 1650px);
+    width: clamp(1450px, 84vw, 2300px);
   }
 }
 
