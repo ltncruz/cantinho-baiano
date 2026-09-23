@@ -4,6 +4,9 @@
   --orange: #ff8a1c;
   --yellow: #ffd43b;
 
+  --green-open: #45d977;
+  --red-closed: #ff7a66;
+
   --font-display: 'Baloo 2', ui-rounded, 'Segoe UI', system-ui, sans-serif;
 }
 
@@ -13,10 +16,14 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html,
 body,
 #root {
-  height: 100%;
+  min-height: 100%;
 }
 
 body {
@@ -24,6 +31,7 @@ body {
   overflow-x: hidden;
   font-family: var(--font-display);
   -webkit-tap-highlight-color: transparent;
+  background-color: var(--brown-dark);
 }
 
 /* ---------- Palco / fundo ---------- */
@@ -33,15 +41,15 @@ body {
   min-height: 100dvh;
 
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
 
-  overflow: hidden;
+  overflow-x: hidden;
 
   padding:
     max(20px, env(safe-area-inset-top))
     clamp(20px, 6vw, 56px)
-    max(20px, env(safe-area-inset-bottom));
+    max(40px, env(safe-area-inset-bottom));
 
   background-color: var(--brown-dark);
   background-image: url('./assets/fundo-mobile.jpg');
@@ -56,6 +64,7 @@ body {
   .page {
     background-image: url('./assets/fundo-desktop.jpg');
     background-position: center top;
+    background-attachment: fixed;
   }
 }
 
@@ -67,9 +76,12 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 
   width: 100%;
   max-width: 1200px;
+
+  min-height: 100dvh;
 
   transform: translateY(-110px);
 }
@@ -202,6 +214,155 @@ body {
   outline-offset: 5px;
 }
 
+/* ---------- Horários ---------- */
+
+.schedule-section {
+  width: 100%;
+  max-width: 760px;
+
+  display: flex;
+  justify-content: center;
+
+  margin-top: -40px;
+  padding: 0 0 50px;
+}
+
+.schedule-card {
+  width: 100%;
+
+  padding: clamp(24px, 5vw, 38px);
+
+  border-radius: 26px;
+
+  border: 1px solid rgba(255, 212, 59, 0.22);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(91, 46, 18, 0.94),
+      rgba(44, 19, 7, 0.96)
+    );
+
+  box-shadow:
+    0 20px 45px rgba(0, 0, 0, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.schedule-title {
+  margin: 0 0 20px;
+
+  color: var(--yellow);
+
+  font-size: clamp(1.6rem, 5vw, 2.25rem);
+  line-height: 1.1;
+
+  text-align: center;
+
+  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+}
+
+/* ---------- Aberto / fechado ---------- */
+
+.status-badge {
+  width: fit-content;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  margin: 0 auto 24px;
+
+  padding: 10px 18px;
+
+  border-radius: 999px;
+
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.045em;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+
+  border-radius: 50%;
+
+  background: currentColor;
+
+  box-shadow: 0 0 12px currentColor;
+}
+
+.status-open {
+  color: var(--green-open);
+
+  background: rgba(48, 184, 89, 0.16);
+
+  border: 1px solid rgba(69, 217, 119, 0.32);
+}
+
+.status-closed {
+  color: var(--red-closed);
+
+  background: rgba(186, 51, 28, 0.18);
+
+  border: 1px solid rgba(255, 122, 102, 0.28);
+}
+
+/* ---------- Lista de horários ---------- */
+
+.schedule-list {
+  width: 100%;
+
+  overflow: hidden;
+
+  border-radius: 18px;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.schedule-row {
+  min-height: 54px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 13px 16px;
+
+  background: rgba(255, 255, 255, 0.035);
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.schedule-row:last-child {
+  border-bottom: 0;
+}
+
+.schedule-day {
+  color: #ffffff;
+
+  font-weight: 700;
+}
+
+.schedule-time {
+  color: var(--yellow);
+
+  font-weight: 700;
+
+  text-align: right;
+}
+
+.closed-time {
+  color: rgba(255, 235, 220, 0.62);
+}
+
 /* ---------- Celulares muito pequenos ---------- */
 
 @media (max-width: 360px) {
@@ -227,6 +388,24 @@ body {
   .whatsapp-icon {
     width: 25px;
     height: 25px;
+  }
+
+  .schedule-section {
+    margin-top: -20px;
+  }
+
+  .schedule-card {
+    padding: 22px 16px;
+  }
+
+  .schedule-row {
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .schedule-day,
+  .schedule-time {
+    font-size: 0.9rem;
   }
 }
 
@@ -269,9 +448,6 @@ body {
   }
 
   .action-buttons {
-    /*
-      No desktop, os dois botões ficam lado a lado.
-    */
     width: auto;
 
     flex-direction: row;
@@ -293,6 +469,14 @@ body {
   .whatsapp-icon {
     width: 27px;
     height: 27px;
+  }
+
+  .schedule-section {
+    margin-top: -110px;
+  }
+
+  .schedule-card {
+    padding: 38px 42px;
   }
 }
 
@@ -327,10 +511,6 @@ body {
 /* ---------- Telas baixas / paisagem mobile ---------- */
 
 @media (max-width: 899px) and (max-height: 620px) {
-  .page {
-    overflow-y: auto;
-  }
-
   .hero {
     transform: translateY(-35px);
   }
@@ -341,6 +521,10 @@ body {
 
   .action-buttons {
     margin-top: 20px;
+  }
+
+  .schedule-section {
+    margin-top: 0;
   }
 }
 
