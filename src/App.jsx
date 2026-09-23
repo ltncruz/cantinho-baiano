@@ -4,7 +4,14 @@ import logo from './assets/Logo.png'
 import whatsappLogo from './assets/whatsapp-logo.png'
 
 const CARDAPIO_URL = 'https://app.cardapioweb.com/cantinhobaiano'
+
 const WHATSAPP_URL = 'https://wa.me/5524999343582'
+
+const GOOGLE_MAPS_URL =
+  'https://www.google.com/maps/search/?api=1&query=Rua+Manchester+722+Ponte+Alta+Volta+Redonda+RJ+27267-150'
+
+const MAPA_EMBED_URL =
+  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3685.3321994037624!2d-44.131763500000005!3d-22.529225299999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9e98fe7d57571b%3A0x7f247f37fc0f8217!2sR.%20Manchester%2C%20722%20-%20Pte.%20Alta%2C%20Volta%20Redonda%20-%20RJ%2C%2027265-105!5e0!3m2!1spt-BR!2sbr!4v1790192576544!5m2!1spt-BR!2sbr'
 
 const HORARIOS = [
   {
@@ -67,7 +74,13 @@ function verificarFuncionamento() {
   const horaAtual = Number(dados.hour)
   const minutoAtual = Number(dados.minute)
 
-  const diasAbertos = ['Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+  const diasAbertos = [
+    'Tue',
+    'Wed',
+    'Thu',
+    'Fri',
+    'Sat',
+  ]
 
   const minutosAtuais =
     horaAtual * 60 + minutoAtual
@@ -107,6 +120,9 @@ function App() {
 
   return (
     <main className="page">
+
+      {/* ---------- LOGO E BOTÕES ---------- */}
+
       <div className="hero">
         <img
           src={logo}
@@ -145,8 +161,12 @@ function App() {
         </div>
       </div>
 
+
+      {/* ---------- HORÁRIOS ---------- */}
+
       <section className="schedule-section">
         <div className="schedule-card">
+
           <h2 className="schedule-title">
             Horários de funcionamento
           </h2>
@@ -187,8 +207,67 @@ function App() {
               </div>
             ))}
           </div>
+
         </div>
       </section>
+
+
+      {/* ---------- LOCALIZAÇÃO ---------- */}
+
+      <section className="location-section">
+
+        <div className="location-card">
+
+          <h2 className="location-title">
+            Onde estamos
+          </h2>
+
+          <p className="location-address">
+            Rua Manchester, 722, Ponte Alta
+            <br />
+            Volta Redonda - RJ
+            <br />
+            CEP 27267-150
+          </p>
+
+          <a
+            href={GOOGLE_MAPS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="map-link"
+            aria-label="Abrir localização do Cantinho Baiano no Google Maps"
+          >
+            <div className="map-preview">
+
+              <iframe
+                src={MAPA_EMBED_URL}
+                title="Localização do Cantinho Baiano"
+                loading="lazy"
+                allowFullScreen
+                referrerPolicy="strict-origin-when-cross-origin"
+                tabIndex="-1"
+              />
+
+              <div className="map-overlay">
+                ABRIR NO GOOGLE MAPS
+              </div>
+
+            </div>
+          </a>
+
+        </div>
+
+      </section>
+
+
+      {/* ---------- RODAPÉ ---------- */}
+
+      <footer className="footer">
+        <p>
+          Cantinho Baiano - 2026 - Todos direitos reservados.
+        </p>
+      </footer>
+
     </main>
   )
 }
